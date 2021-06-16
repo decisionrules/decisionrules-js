@@ -7,6 +7,8 @@ Library is written in JS so it is usable in your Node application.
 ```javascript
 const decisionrues = require("@decisionrules/decisionrules-js")("YOUR_API_KEY", "GEOLOC");
 
+const INPUT_DATA = { day: "today"}
+
 const result = decisionrues.solver("RULE_ID", INPUT_DATA, "VERSION");
 
 result.then(r => {/*..SUPER STUFF...*/});
