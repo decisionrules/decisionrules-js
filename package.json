@@ -1,0 +1,20 @@
+{
+  "name": "@decisionrules/decisionrules-js",
+  "version": "1.2.10",
+  "description": "",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "start": "node lib/index.js",
+    "build-dts": "npx typescript lib/index.js --declaration --allowJs --emitDeclarationOnly --outDir lib"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.21.1"
+  },
+  "devDependencies": {
+    "typescript": "^4.3.2"
+  }
+}
