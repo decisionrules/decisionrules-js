@@ -1,6 +1,6 @@
 {
   "name": "@decisionrules/decisionrules-js",
-  "version": "1.2.10",
+  "version": "1.2.11",
   "description": "",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -8,7 +8,7 @@
     "start": "node lib/index.js",
     "build-dts": "npx typescript lib/index.js --declaration --allowJs --emitDeclarationOnly --outDir lib"
   },
-  "keywords": [],
+  "keywords": ["nodejs", "javascript", "js", "decisionrules", "rule", "engine", "solver"],
   "author": "",
   "license": "ISC",
   "dependencies": {
