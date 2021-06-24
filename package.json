@@ -8,7 +8,15 @@
     "start": "node lib/index.js",
     "build-dts": "npx typescript lib/index.js --declaration --allowJs --emitDeclarationOnly --outDir lib"
   },
-  "keywords": ["nodejs", "javascript", "js", "decisionrules", "rule", "engine", "solver"],
+  "keywords": [
+    "nodejs",
+    "javascript",
+    "js",
+    "decisionrules",
+    "rule",
+    "engine",
+    "solver"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
