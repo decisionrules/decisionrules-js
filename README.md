@@ -42,7 +42,7 @@ drs.solver("RULE_ID_HERE", data, decisionrules.SolverStrategy.STANDARD, "VERSION
 ```javascript
 import {GeoLocation, Solver, SolverStrategy} from '@decisionrules/decisionrules-js';
 
-const test = new Solver("API_KEY_HERE", GeoLocation.EU1);
+const test = new Solver("API_KEY_HERE", GeoLocation.DEFAULT);
 
 const data = {
     day: "today"
