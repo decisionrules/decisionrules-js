@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "types": "types/index.d.ts",
   "scripts": {
-    "build-dts": "npx typescript dist/index.js --declaration --allowJs --emitDeclarationOnly --outDir types",
+    "build-dts": "npx typescript lib/index.ts --declaration --emitDeclarationOnly --outDir types --lib es2015",
     "build-lib": "npx tsc"
   },
   "keywords": [

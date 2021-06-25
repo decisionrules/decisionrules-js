@@ -1,12 +1,9 @@
-export var __esModule: boolean;
-export class Solver {
-    constructor(apiKey: any, geoLoc: any);
-    baseUrl: string;
-    api_key: any;
-    geoLoc: any;
-    solver(ruleId: any, inputData: any, version: any): any;
-    urlFactory(ruleId: any, version: any): string;
-    inputDataParser(inputData: any): {
-        data: any;
-    };
+export declare class Solver {
+    private api_key;
+    private geoLoc;
+    private readonly baseUrl;
+    constructor(apiKey: string, geoLoc?: string);
+    solver<T>(ruleId: any, inputData: any, version?: string): Promise<T>;
+    private urlFactory;
+    private inputDataParser;
 }

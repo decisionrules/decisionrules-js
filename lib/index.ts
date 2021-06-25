@@ -11,15 +11,15 @@ export class Solver{
         this.geoLoc = geoLoc;
     }
 
-    async solver<T>(ruleId:any, inputData:string, version?: string): Promise<T>;
+    async solver<T>(ruleId:any, inputData: any, version?: string): Promise<T>;
     
-    async solver(ruleId: any, inputData: any, version?: any): Promise<any> {
+    async solver(ruleId: any, inputData: any, version?: string): Promise<any> {
         const endpoint = this.urlFactory(ruleId, version);
 
         const header = {Authorization: `Bearer ${this.api_key}`, 'Content-Type': 'application/json'}
 
-        return new Promise<any>(((resolve, reject) => {
-            axios.post(endpoint, this.inputDataParser(inputData), {headers: header}).then(r => {
+        return new Promise<any>((async (resolve, reject) => {
+            await axios.post(endpoint, this.inputDataParser(inputData), {headers: header}).then(r => {
                 resolve(r.data);
             }).catch(error => {
                 if (error.response) {

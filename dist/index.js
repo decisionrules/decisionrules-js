@@ -24,8 +24,8 @@ class Solver {
         return __awaiter(this, void 0, void 0, function* () {
             const endpoint = this.urlFactory(ruleId, version);
             const header = { Authorization: `Bearer ${this.api_key}`, 'Content-Type': 'application/json' };
-            return new Promise(((resolve, reject) => {
-                axios_1.default.post(endpoint, this.inputDataParser(inputData), { headers: header }).then(r => {
+            return new Promise(((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
+                yield axios_1.default.post(endpoint, this.inputDataParser(inputData), { headers: header }).then(r => {
                     resolve(r.data);
                 }).catch(error => {
                     if (error.response) {
@@ -38,7 +38,7 @@ class Solver {
                         reject(`Error: ${error.message}`);
                     }
                 });
-            }));
+            })));
         });
     }
     urlFactory(ruleId, version) {
