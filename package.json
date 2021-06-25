@@ -6,7 +6,8 @@
   "types": "types/index.d.ts",
   "scripts": {
     "build-dts": "npx typescript lib/index.ts --declaration --emitDeclarationOnly --outDir types --lib es2015",
-    "build-lib": "npx tsc"
+    "build-lib": "npx tsc",
+    "build-and-pack": "npm run build-lib && npm run build-dts && npm pack"
   },
   "keywords": [
     "nodejs",

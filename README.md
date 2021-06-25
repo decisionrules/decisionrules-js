@@ -8,25 +8,52 @@ Library is written in JS so it is usable in your Node application.
 ### Require model arguments
 
 * ApiKey - mandatory part of requestOptions
-* GeoLoc - optional argument that specifies desired server location. List of geolocs is in our [docs](https://docs.decisionrules.io/docs/api/geo-location)
+* GeoLoc - optional argument that specifies desired server location. Defined as ENUM (use DEFAULT when you dont need to specify location) List of geolocs is in our [docs](https://docs.decisionrules.io/docs/api/geo-location)
 
 ### DecisionRules.solver arguments
 
 * ruleId - Rule ID from dashboard
 * inputData - data input in JSON parseable format
+* SolverStrategy - STANDARD, ARRAY, FIRST_MATCH 
 * version - optional argument that specifies rule version, if omitted last version is used.
 
 Solver method returns Promise<any> type.
 
 # NodeJS usage
 ```javascript
-const decisionrues = require("@decisionrules/decisionrules-js")("YOUR_API_KEY", "GEOLOC");
+const decisionrules = require('@decisionrules/decisionrules-js');
 
-const INPUT_DATA = { day: "today"}
+const drs = new decisionrules.Solver("API_KEY_HERE", decisionrules.GeoLocation.DEFAULT);
 
-const result = decisionrues.solver("RULE_ID", INPUT_DATA, "VERSION");
+const data = {
+    day: "today"
+};
 
-result.then(r => {/*..SUPER STUFF...*/});
+let result;
+
+drs.solver("RULE_ID_HERE", data, decisionrules.SolverStrategy.STANDARD, "VERSION_HERE").then(r => {
+    result = r;
+    console.log(result[0].result);
+})
+
+```
+
+# TypeScript usage
+```javascript
+import {GeoLocation, Solver, SolverStrategy} from '@decisionrules/decisionrules-js';
+
+const test = new Solver("API_KEY_HERE", GeoLocation.EU1);
+
+const data = {
+    day: "today"
+};
+
+let result;
+
+test.solver("RULE_ID_HERE", data, SolverStrategy.STANDARD, "VERSION_HERE").then(r => {
+    result = r;
+    console.log(result[0].result);
+})
 ```
 Solver method return promise that can be resolved later.
 
