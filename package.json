@@ -2,11 +2,11 @@
   "name": "@decisionrules/decisionrules-js",
   "version": "1.2.11",
   "description": "",
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
+  "main": "dist/index.js",
+  "types": "types/index.d.ts",
   "scripts": {
-    "start": "node lib/index.js",
-    "build-dts": "npx typescript lib/index.js --declaration --allowJs --emitDeclarationOnly --outDir lib"
+    "build-dts": "npx typescript dist/index.js --declaration --allowJs --emitDeclarationOnly --outDir types",
+    "build-lib": "npx tsc"
   },
   "keywords": [
     "nodejs",
