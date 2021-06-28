@@ -25,11 +25,11 @@ export class Solver{
         this.geoLoc = geoLoc;
     }
 
-    async solver(ruleId: any, inputData: any, strategy: SolverStrategy, version?: string): Promise<any>
+    solver(ruleId: any, inputData: any, strategy: SolverStrategy, version?: string): Promise<any>
     
-    async solver<T>(ruleId:any, inputData: any, strategy: SolverStrategy, version?: string): Promise<T>;
+    solver<T>(ruleId:any, inputData: any, strategy: SolverStrategy, version?: string): Promise<T>;
     
-    async solver(ruleId: any, inputData: any, strategy: SolverStrategy, version?: string): Promise<any> {
+    solver(ruleId: any, inputData: any, strategy: SolverStrategy, version?: string): Promise<any> {
         const endpoint = this.urlFactory(ruleId, version);
 
         const header = this.headerFactory(this.api_key, strategy);
