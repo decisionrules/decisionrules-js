@@ -17,12 +17,14 @@ export enum SolverStrategy {
 export class Solver{
     private api_key: string;
     private geoLoc: GeoLocation | undefined = GeoLocation.DEFAULT;
+    private customBaseUrl: string | undefined;
 
     private readonly baseUrl: string = "api.decisionrules.io/rule/solve";
 
-    constructor(apiKey: string, geoLoc?: GeoLocation) {
+    constructor(apiKey: string, geoLoc?: GeoLocation, baseUrl?: string) {
         this.api_key = apiKey;
         this.geoLoc = geoLoc;
+        this.customBaseUrl = baseUrl
     }
 
     solver(ruleId: any, inputData: any, strategy: SolverStrategy, version?: string): Promise<any>
@@ -30,7 +32,7 @@ export class Solver{
     solver<T>(ruleId:any, inputData: any, strategy: SolverStrategy, version?: string): Promise<T>;
     
     solver(ruleId: any, inputData: any, strategy: SolverStrategy, version?: string): Promise<any> {
-        const endpoint = this.urlFactory(ruleId, version);
+        const endpoint = this.urlFactory(ruleId, this.customBaseUrl, version);
 
         const header = this.headerFactory(this.api_key, strategy);
 
@@ -49,13 +51,17 @@ export class Solver{
         }));
     }
     
-    private urlFactory(ruleId: string, version?: string): string {
+    private urlFactory(ruleId: string, customBaseUrl?: string, version?: string): string {
         let url;
 
-        if (this.geoLoc === GeoLocation.DEFAULT) {
-            url = `https://${this.baseUrl}/`;
+        if (typeof (customBaseUrl) === 'undefined' || customBaseUrl === "" || customBaseUrl === null) {
+            if (this.geoLoc === GeoLocation.DEFAULT) {
+                url = `https://${this.baseUrl}/`;
+            } else {
+                url = `https://${this.geoLoc}.${this.baseUrl}/`;
+            }
         } else {
-            url = `https://${this.geoLoc}.${this.baseUrl}/`;
+            url = `http://${customBaseUrl}/rule/solve/`;
         }
 
         if (version != null) {
@@ -63,7 +69,7 @@ export class Solver{
         } else {
             url += `${ruleId}/${version}`;
         }
-
+        
         return url;
     }
 

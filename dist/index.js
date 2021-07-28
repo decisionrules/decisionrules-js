@@ -20,14 +20,15 @@ var SolverStrategy;
     SolverStrategy["FIRST_MATCH"] = "FIRST_MATCH";
 })(SolverStrategy = exports.SolverStrategy || (exports.SolverStrategy = {}));
 class Solver {
-    constructor(apiKey, geoLoc) {
+    constructor(apiKey, geoLoc, baseUrl) {
         this.geoLoc = GeoLocation.DEFAULT;
         this.baseUrl = "api.decisionrules.io/rule/solve";
         this.api_key = apiKey;
         this.geoLoc = geoLoc;
+        this.customBaseUrl = baseUrl;
     }
     solver(ruleId, inputData, strategy, version) {
-        const endpoint = this.urlFactory(ruleId, version);
+        const endpoint = this.urlFactory(ruleId, this.customBaseUrl, version);
         const header = this.headerFactory(this.api_key, strategy);
         return new Promise(((resolve, reject) => {
             axios_1.default.post(endpoint, this.inputDataParser(inputData), { headers: header }).then(r => {
@@ -45,13 +46,18 @@ class Solver {
             });
         }));
     }
-    urlFactory(ruleId, version) {
+    urlFactory(ruleId, customBaseUrl, version) {
         let url;
-        if (this.geoLoc === GeoLocation.DEFAULT) {
-            url = `https://${this.baseUrl}/`;
+        if (typeof (customBaseUrl) === 'undefined' || customBaseUrl === "" || customBaseUrl === null) {
+            if (this.geoLoc === GeoLocation.DEFAULT) {
+                url = `https://${this.baseUrl}/`;
+            }
+            else {
+                url = `https://${this.geoLoc}.${this.baseUrl}/`;
+            }
         }
         else {
-            url = `https://${this.geoLoc}.${this.baseUrl}/`;
+            url = `http://${customBaseUrl}/rule/solve/`;
         }
         if (version != null) {
             url += ruleId;

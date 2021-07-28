@@ -13,8 +13,9 @@ export declare enum SolverStrategy {
 export declare class Solver {
     private api_key;
     private geoLoc;
+    private customBaseUrl;
     private readonly baseUrl;
-    constructor(apiKey: string, geoLoc?: GeoLocation);
+    constructor(apiKey: string, geoLoc?: GeoLocation, baseUrl?: string);
     solver(ruleId: any, inputData: any, strategy: SolverStrategy, version?: string): Promise<any>;
     solver<T>(ruleId: any, inputData: any, strategy: SolverStrategy, version?: string): Promise<T>;
     private urlFactory;

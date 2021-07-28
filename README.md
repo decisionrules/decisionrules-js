@@ -9,6 +9,7 @@ Library is written in JS so it is usable in your Node application.
 
 * ApiKey - mandatory part of requestOptions
 * GeoLoc - optional argument that specifies desired server location. Defined as ENUM (use DEFAULT when you dont need to specify location) List of geolocs is in our [docs](https://docs.decisionrules.io/docs/api/geo-location)
+* customUrl - optional argument for custom DOMAIN if on premise version is used.
 
 ### DecisionRules.solver arguments
 
@@ -23,7 +24,7 @@ Solver method returns Promise<any> type.
 ```javascript
 const decisionrules = require('@decisionrules/decisionrules-js');
 
-const drs = new decisionrules.Solver("API_KEY_HERE", decisionrules.GeoLocation.DEFAULT);
+const drs = new decisionrules.Solver("API_KEY_HERE", decisionrules.GeoLocation.DEFAULT, "CUSTOM_DOMAIN_HERE");
 
 const data = {
     day: "today"

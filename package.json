@@ -1,13 +1,14 @@
 {
   "name": "@decisionrules/decisionrules-js",
-  "version": "1.4.1",
+  "version": "1.5.0",
   "description": "",
   "main": "dist/index.js",
   "types": "types/index.d.ts",
   "scripts": {
     "build-dts": "npx typescript lib/index.ts --declaration --emitDeclarationOnly --outDir types --lib es2015",
     "build-lib": "npx tsc",
-    "build-and-pack": "npm run build-lib && npm run build-dts && npm pack"
+    "build-and-pack": "npm run build-lib && npm run build-dts && npm pack",
+    "publish": "npm publish --acces public"
   },
   "keywords": [
     "nodejs",
