@@ -14,17 +14,40 @@ export enum SolverStrategy {
     FIRST_MATCH = 'FIRST_MATCH'
 }
 
+export enum ProtocolsEnum {
+    HTTP = 'http',
+    HTTPS = 'https'
+}
+
+export class CustomDomain {
+    private customDomainUrl: string;
+    private customDomainProtocol: ProtocolsEnum;
+
+    constructor(customDomainUrl: string, customDomainProtocol: ProtocolsEnum) {
+        this.customDomainUrl = customDomainUrl;
+        this.customDomainProtocol = customDomainProtocol;
+    }
+
+    public getCustomDomainUrl(): string {
+        return this.customDomainUrl;
+    }
+
+    public getCustomDomainProtocol(): ProtocolsEnum {
+        return this.customDomainProtocol;
+    }
+}
+
 export class Solver{
     private api_key: string;
     private geoLoc: GeoLocation | undefined = GeoLocation.DEFAULT;
-    private customBaseUrl: string | undefined;
+    private customBaseUrl: CustomDomain | undefined;
 
     private readonly baseUrl: string = "api.decisionrules.io/rule/solve";
 
-    constructor(apiKey: string, geoLoc?: GeoLocation, baseUrl?: string) {
+    constructor(apiKey: string, geoLoc?: GeoLocation, customDomain?: CustomDomain) {
         this.api_key = apiKey;
         this.geoLoc = geoLoc;
-        this.customBaseUrl = baseUrl
+        this.customBaseUrl = customDomain
     }
 
     solver(ruleId: any, inputData: any, strategy: SolverStrategy, version?: string): Promise<any>
@@ -51,17 +74,17 @@ export class Solver{
         }));
     }
     
-    private urlFactory(ruleId: string, customBaseUrl?: string, version?: string): string {
+    private urlFactory(ruleId: string, customDomain?: CustomDomain, version?: string): string {
         let url;
 
-        if (typeof (customBaseUrl) === 'undefined' || customBaseUrl === "" || customBaseUrl === null) {
+        if (customDomain) {
+            url = `${customDomain.getCustomDomainProtocol()}://${customDomain.getCustomDomainUrl()}/rule/solve/`
+        } else {
             if (this.geoLoc === GeoLocation.DEFAULT) {
                 url = `https://${this.baseUrl}/`;
             } else {
                 url = `https://${this.geoLoc}.${this.baseUrl}/`;
             }
-        } else {
-            url = `http://${customBaseUrl}/rule/solve/`;
         }
 
         if (version != null) {

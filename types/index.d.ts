@@ -10,12 +10,23 @@ export declare enum SolverStrategy {
     ARRAY = "ARRAY",
     FIRST_MATCH = "FIRST_MATCH"
 }
+export declare enum ProtocolsEnum {
+    HTTP = "http",
+    HTTPS = "https"
+}
+export declare class CustomDomain {
+    private customDomainUrl;
+    private customDomainProtocol;
+    constructor(customDomainUrl: string, customDomainProtocol: ProtocolsEnum);
+    getCustomDomainUrl(): string;
+    getCustomDomainProtocol(): ProtocolsEnum;
+}
 export declare class Solver {
     private api_key;
     private geoLoc;
     private customBaseUrl;
     private readonly baseUrl;
-    constructor(apiKey: string, geoLoc?: GeoLocation, baseUrl?: string);
+    constructor(apiKey: string, geoLoc?: GeoLocation, customDomain?: CustomDomain);
     solver(ruleId: any, inputData: any, strategy: SolverStrategy, version?: string): Promise<any>;
     solver<T>(ruleId: any, inputData: any, strategy: SolverStrategy, version?: string): Promise<T>;
     private urlFactory;
