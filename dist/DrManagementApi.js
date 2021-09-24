@@ -79,18 +79,48 @@ var DrManagementApi = /** @class */ (function (_super) {
             });
         });
     };
+    /*
+    * Search for single rule by its ID
+    *
+    * @param ruleId - rule id
+    *
+    * @returns Data model of searched rule.
+    * */
     DrManagementApi.prototype.getRuleById = function (ruleId) {
         var getUrl = this.url + "/rule/" + ruleId;
         return this.getApiCall(getUrl);
     };
+    /*
+    * Search for single rule by its ID and version
+    *
+    * @param ruleId - rule id
+    * @param version - rule version
+    *
+    * @returns Data model of searched rule
+    * */
     DrManagementApi.prototype.getRuleByIdAndVersion = function (ruleId, version) {
         var getUrl = this.url + "/rule/" + ruleId + "/" + version;
         return this.getApiCall(getUrl);
     };
+    /*
+    * Search for space by its ID
+    *
+    * @param spaceId - space id
+    *
+    * @returns Space information
+    * */
     DrManagementApi.prototype.getSpace = function (spaceId) {
         var getUrl = this.url + "/space/" + spaceId;
         return this.getApiCall(getUrl);
     };
+    /*
+    * Post new rule to the space
+    *
+    * @param spaceId - space id of desired destination
+    * @param data - rule model
+    *
+    * @returns Model of posted rule
+    * */
     DrManagementApi.prototype.postRuleForSpace = function (spaceId, data) {
         var postUrl = this.url + "/rule/" + spaceId;
         return axios_1.default.post(postUrl, data, { headers: this.headers }).then(function (response) {
@@ -99,6 +129,16 @@ var DrManagementApi = /** @class */ (function (_super) {
             console.error(error);
         });
     };
+    /*
+    * Update existing rule
+    *
+    * @param ruleId - ruleId of rule that will be updated
+    * @param version - version of rule that will be updated
+    * @param data - rule model that's gonna replace old one
+    *
+    * @returns Rule model of new rule
+    *
+    * */
     DrManagementApi.prototype.putRule = function (ruleId, version, data) {
         var putUrl = this.url + "/rule/" + ruleId + "/" + version;
         return axios_1.default.put(putUrl, data, { headers: this.headers }).then(function (response) {
@@ -107,6 +147,14 @@ var DrManagementApi = /** @class */ (function (_super) {
             console.error(error);
         });
     };
+    /*
+    * Delete rule by its ruleId and version
+    *
+    * @param ruleId - ruleId of rule that should be deleted
+    * @param version - version of rule that should be deleted
+    *
+    * @returns Doesnt return anything.
+    * */
     DrManagementApi.prototype.deleteRule = function (ruleId, version) {
         var deleteUrl = this.url + "/rule/" + ruleId + "/" + version;
         return axios_1.default.delete(deleteUrl, { headers: this.headers }).then(function (response) {

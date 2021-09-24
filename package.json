@@ -1,6 +1,6 @@
 {
   "name": "@decisionrules/decisionrules-js",
-  "version": "1.5.7",
+  "version": "2.0.0",
   "description": "",
   "main": "dist/index.js",
   "types": "types/index.d.ts",

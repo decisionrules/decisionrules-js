@@ -26,14 +26,24 @@ var Solver = /** @class */ (function (_super) {
     function Solver(config) {
         return _super.call(this, config) || this;
     }
-    Solver.prototype.solver = function (solverType, data, ruleId, version) {
+    /*
+    * Solves decision rule or composition.
+    *
+    * @param solverType - Type of solver is defined in SolverTypes enum. Other values are not allowed.
+    * @param data - input object of rule/composition I/O model.
+    * @param id - Id of rule or composition
+    * @param version - Rule version or composition version.
+    *
+    * @return - populated output model with solved values as promise.
+    * */
+    Solver.prototype.solver = function (solverType, data, id, version) {
         var header = this.solverHeaderFactory();
         var apiUrl = this.solverUrlFactory(solverType);
         if (version) {
-            apiUrl += ruleId + "/" + version;
+            apiUrl += id + "/" + version;
         }
         else {
-            apiUrl += "" + ruleId;
+            apiUrl += "" + id;
         }
         return axios_1.default.post(apiUrl, data, { headers: header }).then(function (response) {
             return response.data;
