@@ -1,7 +1,5 @@
 import {SolverStrategy} from './enums/SolverStrategies';
-import {GeoLocation} from './enums/GeoLocations';
 import {SolverTypes} from './enums/SolverTypes';
-import {CustomDomain} from './CustomDomain';
 import {DecisionRulesConfigModel} from './models/Models';
 
 export class DecisionRulesBase {
@@ -12,20 +10,34 @@ export class DecisionRulesBase {
         this.solverConfig = {...config};
     }
 
-    protected headerFactory(authKey: string, strategy: SolverStrategy) {
-        if (strategy === SolverStrategy.STANDARD) {
+    protected solverHeaderFactory() {
+        if (this.solverConfig.strategy === SolverStrategy.STANDARD) {
             return {Authorization: `Bearer ${this.solverConfig.authKey}`, 'Content-Type': 'application/json'};
         } else {
             return {Authorization: `Bearer ${this.solverConfig.authKey}`, 'Content-Type': 'application/json', 'X-Strategy': this.solverConfig.strategy};
         }
     }
 
-    protected solverUrlFactory(geoLoc: GeoLocation, solverType: SolverTypes, customDomain?: CustomDomain) {
+    protected publicApiHeaderFactory() {
+        return {Authorization: `Bearer ${this.solverConfig.publicAuthKey}`, 'Content-Type': 'application/json'};
+    }
+
+    protected solverUrlFactory(solverType: SolverTypes) {
         let url;
-        if (customDomain) {
-            url = `${customDomain.protocol}://${customDomain.domain}/${solverType}/solve/`;
+        if (this.solverConfig.customDomain) {
+            url = `${this.solverConfig.customDomain.protocol}://${this.solverConfig.customDomain.domain}/${solverType}/solve/`;
         } else {
-            url = `https://${geoLoc}.decisionrules.io/${solverType}/solve/`;
+            url = `https://${this.solverConfig.geoLoc}.decisionrules.io/${solverType}/solve/`;
+        }
+        return url;
+    }
+
+    protected crudUrlFactory(){
+        let url;
+        if (this.solverConfig.customDomain) {
+            url = `${this.solverConfig.customDomain.protocol}://${this.solverConfig.customDomain.domain}/api/`
+        } else {
+            url = `https://${this.solverConfig.geoLoc}.decisionrules.io/api/`;
         }
         return url;
     }

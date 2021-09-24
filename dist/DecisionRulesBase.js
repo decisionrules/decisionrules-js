@@ -17,21 +17,34 @@ var DecisionRulesBase = /** @class */ (function () {
     function DecisionRulesBase(config) {
         this.solverConfig = __assign({}, config);
     }
-    DecisionRulesBase.prototype.headerFactory = function (authKey, strategy) {
-        if (strategy === SolverStrategies_1.SolverStrategy.STANDARD) {
+    DecisionRulesBase.prototype.solverHeaderFactory = function () {
+        if (this.solverConfig.strategy === SolverStrategies_1.SolverStrategy.STANDARD) {
             return { Authorization: "Bearer " + this.solverConfig.authKey, 'Content-Type': 'application/json' };
         }
         else {
             return { Authorization: "Bearer " + this.solverConfig.authKey, 'Content-Type': 'application/json', 'X-Strategy': this.solverConfig.strategy };
         }
     };
-    DecisionRulesBase.prototype.solverUrlFactory = function (geoLoc, solverType, customDomain) {
+    DecisionRulesBase.prototype.publicApiHeaderFactory = function () {
+        return { Authorization: "Bearer " + this.solverConfig.publicAuthKey, 'Content-Type': 'application/json' };
+    };
+    DecisionRulesBase.prototype.solverUrlFactory = function (solverType) {
         var url;
-        if (customDomain) {
-            url = customDomain.protocol + "://" + customDomain.domain + "/" + solverType + "/solve/";
+        if (this.solverConfig.customDomain) {
+            url = this.solverConfig.customDomain.protocol + "://" + this.solverConfig.customDomain.domain + "/" + solverType + "/solve/";
         }
         else {
-            url = "https://" + geoLoc + ".decisionrules.io/" + solverType + "/solve/";
+            url = "https://" + this.solverConfig.geoLoc + ".decisionrules.io/" + solverType + "/solve/";
+        }
+        return url;
+    };
+    DecisionRulesBase.prototype.crudUrlFactory = function () {
+        var url;
+        if (this.solverConfig.customDomain) {
+            url = this.solverConfig.customDomain.protocol + "://" + this.solverConfig.customDomain.domain + "/api/";
+        }
+        else {
+            url = "https://" + this.solverConfig.geoLoc + ".decisionrules.io/api/";
         }
         return url;
     };

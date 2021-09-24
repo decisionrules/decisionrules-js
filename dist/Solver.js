@@ -27,8 +27,8 @@ var Solver = /** @class */ (function (_super) {
         return _super.call(this, config) || this;
     }
     Solver.prototype.solver = function (solverType, data, ruleId, version) {
-        var header = this.headerFactory(this.solverConfig.authKey, this.solverConfig.strategy);
-        var apiUrl = this.solverUrlFactory(this.solverConfig.geoLoc, solverType, this.solverConfig.customDomain);
+        var header = this.solverHeaderFactory();
+        var apiUrl = this.solverUrlFactory(solverType);
         if (version) {
             apiUrl += ruleId + "/" + version;
         }

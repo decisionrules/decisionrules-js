@@ -9,7 +9,6 @@ export class CustomDomain {
         this._domain = domain;
     }
 
-
     get protocol(): Protocols {
         return this._protocol;
     }

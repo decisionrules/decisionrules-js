@@ -11,4 +11,6 @@ export class DecisionRulesConfigModel{
     geoLoc: GeoLocation;
     // @ts-ignore
     customDomain?: CustomDomain;
+    // @ts-ignore
+    publicAuthKey?: string;
 }

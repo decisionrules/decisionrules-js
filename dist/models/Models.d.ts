@@ -6,4 +6,5 @@ export declare class DecisionRulesConfigModel {
     strategy: SolverStrategy;
     geoLoc: GeoLocation;
     customDomain?: CustomDomain;
+    publicAuthKey?: string;
 }
