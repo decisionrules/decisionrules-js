@@ -114,7 +114,7 @@ export class Example {
 If you wish to solve compositions you can simply change `solverType` attribute in `Solver.solver` method.
 
 ```Typescript
-return await this.decisionrules.solver(SolverTypes.COMPOSITION, this.data, this.ruleId);
+return await this.decisionrules.solver(SolverTypes.RULEFLOW, this.data, this.ruleId);
 ```
 
 <a name="management_api"></a>

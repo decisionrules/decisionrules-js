@@ -1,4 +1,4 @@
 export enum SolverTypes {
     RULE = 'rule',
-    COMPOSITION = 'composition'
+    RULEFLOW = 'composition'
 }
