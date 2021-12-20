@@ -1,6 +1,7 @@
 import {SolverStrategy} from './enums/SolverStrategies';
 import {SolverTypes} from './enums/SolverTypes';
 import {DecisionRulesConfigModel} from './models/Models';
+import {GeoLocation} from "./enums/GeoLocations";
 
 export class DecisionRulesBase {
 
@@ -8,6 +9,9 @@ export class DecisionRulesBase {
 
     constructor(config: DecisionRulesConfigModel) {
         this.solverConfig = {...config};
+        if (!this.solverConfig.geoLoc){
+            this.solverConfig.geoLoc = GeoLocation.DEFAULT;
+        }
     }
 
     protected solverHeaderFactory() {
