@@ -27,6 +27,8 @@ Solver is designed for solving rules made in DecisionRules application. Simply
 Initialize `Solver` instance and populate config object. After that you use solver method.
 Rule ids are accessible in DecisionRules app.
 
+If you want to call solver on on-premise version you need to use CustomDomain option.
+
 <a name="config"></a>
 ### 1.1 - Defining config object
 
