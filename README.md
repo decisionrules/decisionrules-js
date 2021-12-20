@@ -30,7 +30,7 @@ Rule ids are accessible in DecisionRules app.
 <a name="config"></a>
 ### 1.1 - Defining config object
 
-Config object is defined by `DecisionRulesConfigModel`
+Config object is defined by `DecisionRulesConfigModel`. GeoLocation is NOT mandatory.
 
 ````typescript
 const config: DecisionRulesConfigModel = {
