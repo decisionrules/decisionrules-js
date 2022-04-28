@@ -1,15 +1,16 @@
 {
   "name": "@decisionrules/decisionrules-js",
-  "version": "2.0.4",
+  "version": "3.0.0",
   "description": "",
   "main": "dist/index.js",
   "types": "types/index.d.ts",
   "scripts": {
-    "build": "npx tsc -t es5",
-    "prepack-win": "copy \"package.json\" \"dist/\" && copy \"README.md\" \"dist/\"",
-    "pack": "npm run prepack-win && cd ./dist && npm pack --pack-destination ../",
-    "bap": "npm run build && npm run pack"
+    "build": "npx tsc",
+    "prepack": "npm run build"
   },
+  "files": [
+    "/dist"
+  ],
   "keywords": [
     "nodejs",
     "javascript",
