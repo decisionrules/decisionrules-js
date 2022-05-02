@@ -153,9 +153,19 @@ export class ManagementApi {
 
     }
 
-    public async changeStatus(ruleId: string, status: string, version: number) {
+    public async changeRuleStatus(ruleId: string, status: string, version: number) {
 
         let url: string = `${this.urlBase}/rule/status/${ruleId}/${status}/${version}`;
+
+        const response = await axios.put(url, undefined, {headers: this.header});
+
+        return response.data;
+
+    }
+
+    public async changeRuleFlowStatus(ruleId: string, status: string, version: number) {
+
+        let url: string = `${this.urlBase}/rule-flow/status/${ruleId}/${status}/${version}`;
 
         const response = await axios.put(url, undefined, {headers: this.header});
 
