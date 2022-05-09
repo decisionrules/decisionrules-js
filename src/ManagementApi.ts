@@ -33,7 +33,7 @@ export class ManagementApi {
 
     }
 
-    public async getSpace() {
+    public async getItems() {
 
         const url: string = `${this.urlBase}/space/items`;
 
@@ -139,7 +139,7 @@ export class ManagementApi {
             url = `${this.urlBase}/rule-flow/import`;
         }
         
-        if (ruleId) {
+        if (ruleId && !version) {
             url = `${this.urlBase}/rule-flow/import/?new-version=${ruleId}`;
         }
         
@@ -173,9 +173,11 @@ export class ManagementApi {
 
     }
 
-    public async getTags() {
+    public async getTags(tags: string[]) {
 
-        let url: string = `${this.urlBase}/tags/items`;
+        const tagsQuery = tags.join(",");
+
+        let url: string = `${this.urlBase}/tags/items?tags=${tagsQuery}`;
 
         const response = await axios.get(url, {headers: this.header});
 
