@@ -35,7 +35,7 @@ export class SolverUrl implements Url  {
         let url: string;
 
         if (domain) {
-            url = `${domain.protocol}://${domain.domainName}${prefix}/${data.ruleId}`
+            url = `${domain.protocol}://${domain.domainName}:${domain.port}/${prefix}/${data.ruleId}`
         } else {
             url = baseUrl + prefix;
         }
@@ -60,7 +60,7 @@ export class ManagementUrl implements Url {
         let url: string;
 
         if (domain) {
-            url = `${domain.protocol}://${domain.domainName}${prefix}`
+            url = `${domain.protocol}://${domain.domainName}:${domain.port}/${prefix}`
         } else {
             url = baseUrl + prefix;
         }

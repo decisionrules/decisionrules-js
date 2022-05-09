@@ -12,7 +12,8 @@ export type ManagementConfig = {
 
 export type CustomDomain = {
     domainName: string,
-    protocol: Protocol
+    protocol: Protocol,
+    port: number
 }
 
 export type UrlData = {

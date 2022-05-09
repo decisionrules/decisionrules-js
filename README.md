@@ -1,184 +1,67 @@
-# DecisionRules-JS
+# Summary
+[Decisionrules.io](https://decisionrules.io/) library that allows you to integrate DecisionRules Solver and Management API to you application as easily as possible. SDK allow you to solve all rule types that are available, CRUD operations on all rule types, rules status management and rule tags management.
+> VERSION 3 IS NEW MAJOR VERSION OF THIS SDK AND IT IS STRONGLY RECOMMENDED, DUE TO DEPRECATION OF OLDER VERSIONS.
 
-A simple library that allows you to easily connect to [Decisionrules.io](https://decisionrules.io) from your application.
-
-## Table of contents
-
-1. [Usage](#usage)
-2. [Solver](#solver)
-3. [Defining config object](#config)
-4. [Solver usage example](#solver_usage)
-5. [Solver with custom domain example](#solver_domain)
-6. [Switching between Rule Solver and Composition Solver](#switch)
-7. [Management API](#management_api)
-8. [Management API usage example](#mana_example)
-9. [All available methods in management API](#methods)
-
-<a name="usage"></a>
-## Usage 
-
-* Solver (Rules, Compositions)
-* Management API
-
-<a name="solver"></a>
-## 1 - Solver
-
-Solver is designed for solving rules made in DecisionRules application. Simply
-Initialize `Solver` instance and populate config object. After that you use solver method.
-Rule ids are accessible in DecisionRules app.
-
-If you want to call solver on on-premise version you need to use CustomDomain option.
-
-<a name="config"></a>
-### 1.1 - Defining config object
-
-Config object is defined by `DecisionRulesConfigModel`. GeoLocation is NOT mandatory.
-
-````typescript
-const config: DecisionRulesConfigModel = {
-    authKey : "API KEY",
-    geoLoc : GeoLocation.DEFAULT,
-    strategy : SolverStrategy.STANDARD,
-    customDomain: new CustomDomain(Protocols.HTTP, "api.decisionrules.io"), // OPTIONAL
-    publicAuthKey: "MANAGEMENT KEY" // OPTIONAL
-}
-````
-
-<a name="solver_usage"></a>
-### 1.2 - Solver usage example
-
-Solver methods are defined in `Solver` class.
-
+# Installation
+You can simply integrate [SDK](https://www.npmjs.com/package/@decisionrules/decisionrules-js) to your project via NPM package manager.
+# Defining Custom domain
+Custom domain is special class that is designed for those who uses DecisionRules in private cloud or as on-premise. Class takes up to 3 arguments (where domain name and protocol is mandatory):
+|Argument|Data type|
+|--|--|
+|domain|string|
+|protocol|Types.Protocol|
+|port|int|
+Domain argument is name of desired domain, protocol is HTTP or HTTPS and port is TCP/IP port.
+If port is not defined in the class constructor it is set to default value by protocol value, 80 for HTTP and 443 for HTTPS.
 ```typescript
-export class Example {
-    private decisionrules;
-    private readonly config: DecisionRulesConfigModel;
-
-    constructor() {
-        this.config = {
-            authKey : "API KEY",
-            geoLoc : GeoLocation.DEFAULT,
-            strategy : SolverStrategy.STANDARD
-        }
-        this.decisionrules = new Solver(this.config);
-    }
-
-    private data = {
-        data: {
-            say: "Do not eat hedgehogs"
-        }
-    }
-
-    private readonly ruleId = "RULE ID";
-
-    async callSolver(){
-        return await this.decisionrules.solver(SolverTypes.RULE, this.data, this.ruleId);
-    }
+let customDomain = new CustomDomain("api.mydomain.com", Protocol.HTTP);
+let customDomain2 = new CustomDomain("api.mydomain.com", Protocol.HTTPS, 443); 
+```
+# Using Solver API
+Solver class takes up to 2 arguments that are `api key`(can be generated on dashboard), `custom domain` object. Class exposes two async methods: SolveRule and SolveRuleFlow.
+```typescript
+public async amazingRuleSolver(): Promise<any> 
+{
+	let solver = new Solver("myApiKey");
+	
+	let itemId = "id of a rule that is being solved";
+	let itemId2 = "id of a ruleflow that is being solved";
+	
+	var resultForRule = await solver.SolveRule(itemId, data);
+	var resultForRuleFlow = await solver.SolverRuleFlow(itemId2, data);
+	
+	return resultForRule;
 }
 ```
-<a name="solver_domain"></a>
-### 1.3 - Solver with custom domain example
+# Using Management API
+Management class takes on argument, management api key. Class exposes number of methods listed below.
 
-To use custom domain just add customDomain key to the config a populate it with `new CustomDomain` instance.
-Protocol is defined by `Protocols` enum.
+- getRule - get rule by itemId and version*
+- createRule - create rule by spaceId and ruleData
+- updateRule - updates rule by itemId, newRuleData and version*
+- deleteRule - deletes rule by itemId and version
+- getSpaceItems - get space items that belongs to management api key or get items by tags
+- getRuleFlow - get rule by itemId and version*
+- createRuleFlow - create ruleflow in space that belongs to management api key
+- updateRuleFlow - updates ruleflowby itemId, newRuleflowData and version*
+- deleteRuleFlow - deletes ruleflow by itemId and version
+- exportRuleFlow - exports ruleflow by itemId and version*
+- importRuleFlow - import ruleflow as a new ruleflow or new version of existing ruleflow or override existing ruleflow.
+- changeRuleStatus - changes rule status
+- changeRuleFlowStatus - changes ruleflow status
+- updateTags - update tags on rule or ruleflow
+- deleteTags - delete tags on rule or ruleflow
 
+> \* = optional argument
+
+## Example usage
 ```typescript
-export class Example {
-    private decisionrules;
-    private readonly config: DecisionRulesConfigModel;
+public async manageRules(): Promise<any>
+{
+	var manager = new Management("management_key");
+	
+	var itemId = "some rule or ruleflow id"
 
-    constructor() {
-        this.config = {
-            authKey : "API KEY",
-            geoLoc : GeoLocation.DEFAULT,
-            strategy : SolverStrategy.STANDARD,
-            customDomain: new CustomDomain(Protocols.HTTP, "api.decisionrules.io")
-        }
-        this.decisionrules = new Solver(this.config);
-    }
-
-    private data = {
-        data: {
-            say: "Do not eat hedgehogs"
-        }
-    }
-
-    private readonly ruleId = "RULE ID";
-
-    async callSolver(){
-        return await this.decisionrules.solver(SolverTypes.RULE, this.data, this.ruleId);
-    }
-}
-```
-<a name="switch"></a>
-### 1.4 - Switching between Rule Solver and Composition Solver
-
-If you wish to solve compositions you can simply change `solverType` attribute in `Solver.solver` method.
-
-```Typescript
-return await this.decisionrules.solver(SolverTypes.RULE_FLOW, this.data, this.ruleId);
-```
-
-<a name="management_api"></a>
-## 2 - Management API
-
-Management api is accessible in `DrManagementApi` and required management api key that you can obtain in api key section
-in DecisionRules app. Management api key is defined in config object (see 1.1).
-
-<a name="mana_example"></a>
-### 2.1 Management API usage example
-
-Management api is defined by `DrManagementApi` class.
-
-```typescript
-export class Example {
-    private managementApi;
-    private readonly config: DecisionRulesConfigModel;
-
-    constructor() {
-        this.config = {
-            authKey: "API KEY",
-            geoLoc: GeoLocation.DEFAULT,
-            strategy: SolverStrategy.STANDARD,
-            publicAuthKey: "MANAGEMENT KEY"
-        }
-        this.managementApi = new DrManagementApi(this.config);
-    }
-
-    private data = {
-        data: {
-            say: "Do not eat hedgehogs"
-        }
-    }
-
-    private readonly ruleId = "RULE ID";
-
-    async getRuleById() {
-        return await this.publicApi.getRuleById(this.ruleId);
-    }
-}
-```
-
-<a name="methods"></a>
-### 2.3 All available methods in management API
-
-* GetRuleById - Search for single rule by its ID
-* GetRuleByIdAndVersion - Search for single rule by its ID and version
-* GetSpace - Search for space by its ID
-* PostRuleForSpace - Post new rule to the space
-* PutRule - Update existing rule
-* DeleteRule - Delete existing rule
-
-```typescript
-this.publicApi.getRuleById(ruleId);
-
-this.publicApi.getRuleByIdAndVersion(ruleId, version);
-
-this.publicApi.getSpace(spaceId);
-
-this.publicApi.postRuleForSpace(spaceId, ruleDataModel);
-
-this.publicApi.putRule(ruleId, version, ruleDataModel);
-
-this.publicApi.deleteRule(ruleId, version);
+	return await manager.getRule(itemId);
+} 
 ```
