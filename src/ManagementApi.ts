@@ -173,7 +173,7 @@ export class ManagementApi {
 
     }
 
-    public async getTags(tags: string[]) {
+    public async getRulesByTags(tags: string[]) {
 
         const tagsQuery = tags.join(",");
 

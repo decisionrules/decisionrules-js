@@ -16,7 +16,7 @@ export class Solver{
     }
 
 
-    public async solveRule(ruleId: string, data: object, version?: number | string, strategy?: RuleStrategy) {
+    public async solveRule(ruleId: string, data: object, version?: number | "latest", strategy?: RuleStrategy) {
 
         let urlData = {version, mode: SolverMode.RULE, ruleId};
 
@@ -28,7 +28,7 @@ export class Solver{
         return response.data;
     }
 
-    public async solveRuleFlow(ruleId: string, data: object, version?: number | string, strategy?: RuleStrategy) {
+    public async solveRuleFlow(ruleId: string, data: object, version?: number | "latest", strategy?: RuleStrategy) {
 
         let urlData = {version, mode: SolverMode.RULEFLOW, ruleId};
 
