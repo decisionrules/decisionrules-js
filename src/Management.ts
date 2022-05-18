@@ -1,18 +1,19 @@
-import { HeaderContext, ManagementHeader } from "./Header";
-import { CustomDomain, HttpHeader } from "./Types";
-import { ManagementUrl, UrlContext } from "./Url";
+import {HeaderContext, ManagementHeader} from "./Header";
+import {CustomDomain, HttpHeader, Tag} from "./Types";
+import {ManagementUrl, UrlContext} from "./Url";
 import axios from "axios";
+import {Protocol} from "./Enums";
 
-export class ManagementApi {
+export class Management {
 
     private readonly apikey: string;
     private readonly customDomain: CustomDomain;
     private readonly header: HttpHeader;
     private readonly urlBase: string;
 
-    constructor(managementKey: string, customDomain: CustomDomain) {
+    constructor(managementKey: string, customDomain?: CustomDomain) {
         this.apikey = managementKey;
-        this.customDomain = customDomain;
+        this.customDomain = customDomain ?? {domainName: "api.decisionrules.io", protocol: Protocol.HTTPS, port: 443};
         this.header = new HeaderContext(new ManagementHeader()).createHeader(this.apikey);
         this.urlBase = new UrlContext(new ManagementUrl).createUrl(undefined, this.customDomain);
     }
@@ -33,7 +34,7 @@ export class ManagementApi {
 
     }
 
-    public async getItems() {
+    public async getSpaceItems() {
 
         const url: string = `${this.urlBase}/space/items`;
 
@@ -43,9 +44,9 @@ export class ManagementApi {
 
     }
 
-    public async createRule(spaceId: string, data: object) {
+    public async createRule(data: object) {
 
-        const url: string = `${this.urlBase}/rule/${spaceId}`;
+        const url: string = `${this.urlBase}/rule/`;
 
         const response = await axios.post(url, data, {headers: this.header});
 
@@ -185,7 +186,7 @@ export class ManagementApi {
 
     }
 
-    public async updateTags(ruleId: string, data: object, version?: number) {
+    public async updateTags(ruleId: string, data: Tag[], version?: number) {
 
         let url: string;
 
@@ -200,7 +201,7 @@ export class ManagementApi {
         return response.data;
     }
 
-    public async deleteTags(ruleId: string, tags: Array<string>, version?: number) {
+    public async deleteTags(ruleId: string, tags: string[], version?: number) {
 
         let url: string;
 

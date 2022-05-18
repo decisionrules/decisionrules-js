@@ -23,7 +23,7 @@ export class Solver{
         const header: HttpHeader = new HeaderContext(new SolverHeader()).createHeader(this.apiKey, strategy);
         const url: string = new UrlContext(new SolverUrl()).createUrl(urlData, this.customDomain);
 
-        const response = await axios.post(url, data, {headers: header});
+        const response = await axios.post(url, {data: data}, {headers: header});
 
         return response.data;
     }
@@ -35,7 +35,7 @@ export class Solver{
         const url: string = new UrlContext(new SolverUrl()).createUrl(urlData, this.customDomain);
         const header: HttpHeader = new HeaderContext(new SolverHeader()).createHeader(this.apiKey, strategy);
 
-        const response = await axios.post(url, data, {headers: header});
+        const response = await axios.post(url, {data: data}, {headers: header});
 
         return response.data;
 

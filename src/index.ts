@@ -1,4 +1,4 @@
 import { Solver } from "./Solver";
-import { ManagementApi } from "./ManagementApi";
+import { Management } from "./Management";
 
-export {Solver, ManagementApi};
+export {Solver, Management};

@@ -5,17 +5,12 @@
 # Installation
 You can simply integrate [SDK](https://www.npmjs.com/package/@decisionrules/decisionrules-js) to your project via NPM package manager.
 # Defining Custom domain
-Custom domain is special class that is designed for those who uses DecisionRules in private cloud or as on-premise. Class takes up to 3 arguments (where domain name and protocol is mandatory):
-|Argument|Data type|
-|--|--|
-|domain|string|
-|protocol|Types.Protocol|
-|port|int|
+Custom domain is special class that is designed for those who uses DecisionRules in private cloud or as on-premise. Class takes up to 3 arguments.
+
 Domain argument is name of desired domain, protocol is HTTP or HTTPS and port is TCP/IP port.
 If port is not defined in the class constructor it is set to default value by protocol value, 80 for HTTP and 443 for HTTPS.
 ```typescript
-let customDomain = new CustomDomain("api.mydomain.com", Protocol.HTTP);
-let customDomain2 = new CustomDomain("api.mydomain.com", Protocol.HTTPS, 443); 
+let customDomain = new CustomDomain("api.mydomain.com", Protocol.HTTPS, 443); 
 ```
 # Using Solver API
 Solver class takes up to 2 arguments that are `api key`(can be generated on dashboard), `custom domain` object. Class exposes two async methods: SolveRule and SolveRuleFlow.
@@ -40,7 +35,7 @@ Management class takes on argument, management api key. Class exposes number of 
 - createRule - create rule by spaceId and ruleData
 - updateRule - updates rule by itemId, newRuleData and version*
 - deleteRule - deletes rule by itemId and version
-- getSpaceItems - get space items that belongs to management api key or get items by tags
+- getSpaceItems - get space items that belongs to management api key
 - getRuleFlow - get rule by itemId and version*
 - createRuleFlow - create ruleflow in space that belongs to management api key
 - updateRuleFlow - updates ruleflowby itemId, newRuleflowData and version*
@@ -49,6 +44,7 @@ Management class takes on argument, management api key. Class exposes number of 
 - importRuleFlow - import ruleflow as a new ruleflow or new version of existing ruleflow or override existing ruleflow.
 - changeRuleStatus - changes rule status
 - changeRuleFlowStatus - changes ruleflow status
+- getRulesByTags - gets rule by tag.
 - updateTags - update tags on rule or ruleflow
 - deleteTags - delete tags on rule or ruleflow
 
