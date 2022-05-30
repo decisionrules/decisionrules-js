@@ -18,6 +18,14 @@ export class Management {
         this.urlBase = new UrlContext(new ManagementUrl).createUrl(undefined, this.customDomain);
     }
 
+    /**
+     * Returns rule by ruleId and version.
+     *
+     * @param ruleId
+     * @param version
+     *
+     * @returns rule
+     */
     public async getRule(ruleId: string, version?: number) {
 
         let url: string;
@@ -34,6 +42,10 @@ export class Management {
 
     }
 
+    /**
+     * Returns all item present in space that belongs to management API key.
+     *
+     */
     public async getSpaceItems() {
 
         const url: string = `${this.urlBase}/space/items`;
@@ -44,26 +56,44 @@ export class Management {
 
     }
 
-    public async createRule(data: object) {
+    /**
+     * Creates rule in space.
+     *
+     * @param rule
+     */
+    public async createRule(rule: object) {
 
         const url: string = `${this.urlBase}/rule/`;
 
-        const response = await axios.post(url, data, {headers: this.header});
+        const response = await axios.post(url, rule, {headers: this.header});
 
         return response.data;
 
     }
 
-    public async updateRule(ruleId: string, data: object,  version: number) {
+    /**
+     * Updates rule that is in space.
+     *
+     * @param ruleId
+     * @param rule
+     * @param version
+     */
+    public async updateRule(ruleId: string, rule: object,  version: number) {
 
         const url = `${this.urlBase}/rule/${ruleId}/${version}`
 
-        const response = await axios.put(url, data, {headers: this.header});
+        const response = await axios.put(url, rule, {headers: this.header});
 
         return response.status;
 
     }
 
+    /**
+     * Deletes rule from space.
+     *
+     * @param ruleId
+     * @param version
+     */
     public async deleteRule(ruleId: string, version: number) {
 
         const url = `${this.urlBase}/rule/${ruleId}/${version}`
@@ -73,6 +103,12 @@ export class Management {
         return response.status;
     }
 
+    /**
+     * Returns RuleFlow by ruleId or version.
+     *
+     * @param ruleId
+     * @param version
+     */
     public async getRuleFlow(ruleId: string, version?: number){
         let url: string;
 
@@ -87,23 +123,41 @@ export class Management {
         return response.data;
     }
 
-    public async createRuleFlow(data: object){
+    /**
+     * Creates RuleFlow in space.
+     *
+     * @param ruleFlow
+     */
+    public async createRuleFlow(ruleFlow: object){
         const url: string =  `${this.urlBase}/rule-flow/`;
 
-        const response = await axios.post(url, data, {headers: this.header});
+        const response = await axios.post(url, ruleFlow, {headers: this.header});
 
         return response.data;
     }
 
-    public async updateRuleFLow(ruleId: string, data: object, version: number){
+    /**
+     * Updates RuleFlow in space.
+     *
+     * @param ruleId
+     * @param ruleFlow
+     * @param version
+     */
+    public async updateRuleFLow(ruleId: string, ruleFlow: object, version: number){
 
         const url =  `${this.urlBase}/rule-flow/${ruleId}/${version}`;
 
-        const response = await axios.put(url, data, {headers: this.header});
+        const response = await axios.put(url, ruleFlow, {headers: this.header});
 
         return response.data;
     }
 
+    /**
+     * Deletes RuleFlow from space.
+     *
+     * @param ruleId
+     * @param version
+     */
     public async deleteRuleFlow(ruleId: string, version?: number){
         let url: string;
 
@@ -118,6 +172,12 @@ export class Management {
         return response.status;
     }
 
+    /**
+     * Returns RuleFlow from space.
+     *
+     * @param ruleId
+     * @param version
+     */
     public async exportRuleFlow(ruleId: string, version?: number){
         let url: string;
 
@@ -132,7 +192,14 @@ export class Management {
         return response.data;
     }
 
-    public async importRuleFlow(data: object, ruleId?: string, version?: number){
+    /**
+     * Imports RuleFlow to the space. Input has to be in format [RuleFlow, RuleFlowRule1,...,RuleFlowRuleN]
+     *
+     * @param ruleFlow
+     * @param ruleId
+     * @param version
+     */
+    public async importRuleFlow(ruleFlow: object, ruleId?: string, version?: number){
 
         let url: string = "";
 
@@ -148,12 +215,19 @@ export class Management {
             url = `${this.urlBase}/rule-flow/import/?overwrite=${ruleId}&version=${version}`;
         }
 
-        const response = await axios.post(url, data, {headers: this.header});
+        const response = await axios.post(url, ruleFlow, {headers: this.header});
 
         return response.data;
 
     }
 
+    /**
+     * Publish or unpublish rules.
+     *
+     * @param ruleId
+     * @param status
+     * @param version
+     */
     public async changeRuleStatus(ruleId: string, status: string, version: number) {
 
         let url: string = `${this.urlBase}/rule/status/${ruleId}/${status}/${version}`;
@@ -164,6 +238,13 @@ export class Management {
 
     }
 
+    /**
+     * Publish or unpublish RuleFlows
+     *
+     * @param ruleId
+     * @param status
+     * @param version
+     */
     public async changeRuleFlowStatus(ruleId: string, status: string, version: number) {
 
         let url: string = `${this.urlBase}/rule-flow/status/${ruleId}/${status}/${version}`;
@@ -174,6 +255,11 @@ export class Management {
 
     }
 
+    /**
+     * Returns rule by its tags.
+     *
+     * @param tags
+     */
     public async getRulesByTags(tags: string[]) {
 
         const tagsQuery = tags.join(",");
@@ -186,7 +272,14 @@ export class Management {
 
     }
 
-    public async updateTags(ruleId: string, data: Tag[], version?: number) {
+    /**
+     * Updates tags on rules.
+     *
+     * @param ruleId
+     * @param tags
+     * @param version
+     */
+    public async updateTags(ruleId: string, tags: Tag[], version?: number) {
 
         let url: string;
 
@@ -196,11 +289,18 @@ export class Management {
             url = `${this.urlBase}/tags/${ruleId}`
         }
 
-        const response = await axios.patch(url, data, {headers: this.header});
+        const response = await axios.patch(url, tags, {headers: this.header});
 
         return response.data;
     }
 
+    /**
+     * Delete tags from rules.
+     *
+     * @param ruleId
+     * @param tags
+     * @param version
+     */
     public async deleteTags(ruleId: string, tags: string[], version?: number) {
 
         let url: string;

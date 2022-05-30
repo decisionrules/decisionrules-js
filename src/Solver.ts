@@ -15,7 +15,6 @@ export class Solver{
         this.customDomain = customDomain;
     }
 
-
     public async solveRule(ruleId: string, data: object, version?: number | "latest", strategy?: RuleStrategy) {
 
         let urlData = {version, mode: SolverMode.RULE, ruleId};
@@ -23,7 +22,7 @@ export class Solver{
         const header: HttpHeader = new HeaderContext(new SolverHeader()).createHeader(this.apiKey, strategy);
         const url: string = new UrlContext(new SolverUrl()).createUrl(urlData, this.customDomain);
 
-        const response = await axios.post(url, {data: data}, {headers: header});
+        const response = await axios.post(url, this.transformRequestData(data), {headers: header});
 
         return response.data;
     }
@@ -35,10 +34,18 @@ export class Solver{
         const url: string = new UrlContext(new SolverUrl()).createUrl(urlData, this.customDomain);
         const header: HttpHeader = new HeaderContext(new SolverHeader()).createHeader(this.apiKey, strategy);
 
-        const response = await axios.post(url, {data: data}, {headers: header});
+        const response = await axios.post(url, this.transformRequestData(data), {headers: header});
 
         return response.data;
 
     }
 
+    private transformRequestData(request: object): object {
+
+        if (request.hasOwnProperty("data")){
+            return request;
+        }
+
+        return {data: request};
+    }
 }

@@ -1,6 +1,4 @@
 import { RuleStrategy } from "./Enums";
-import { ManagementApi } from "./Management";
-import { Solver } from "./Solver";
 import { HttpHeader } from "./Types";
 
 export class HeaderContext{
