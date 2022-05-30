@@ -3,16 +3,16 @@ import { CustomDomain } from "./Types";
 import { HeaderContext, SolverHeader } from "./Header";
 import { HttpHeader } from "./Types";
 import { SolverUrl, UrlContext } from "./Url";
-import { SolverMode, RuleStrategy } from "./Enums";
+import {SolverMode, RuleStrategy, RuleFlowStrategy, Protocol} from "./Enums";
 
 export class Solver{
 
     private readonly customDomain: CustomDomain;
     private readonly apiKey: string
 
-    constructor(apiKey: string, customDomain: CustomDomain) {
+    constructor(apiKey: string, customDomain?: CustomDomain) {
         this.apiKey = apiKey;
-        this.customDomain = customDomain;
+        this.customDomain = customDomain ?? {domainName: "api.decisionrules.io", protocol: Protocol.HTTPS, port: 443};
     }
 
     public async solveRule(ruleId: string, data: object, version?: number | "latest", strategy?: RuleStrategy) {
@@ -27,7 +27,7 @@ export class Solver{
         return response.data;
     }
 
-    public async solveRuleFlow(ruleId: string, data: object, version?: number | "latest", strategy?: RuleStrategy) {
+    public async solveRuleFlow(ruleId: string, data: object, version?: number | "latest", strategy?: RuleFlowStrategy) {
 
         let urlData = {version, mode: SolverMode.RULEFLOW, ruleId};
 

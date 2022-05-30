@@ -1,4 +1,4 @@
-import { RuleStrategy } from "./Enums";
+import {RuleFlowStrategy, RuleStrategy} from "./Enums";
 import { HttpHeader } from "./Types";
 
 export class HeaderContext{
@@ -9,19 +9,19 @@ export class HeaderContext{
         this.header = header;
     }
 
-    public createHeader(key: string, strategy?: RuleStrategy): HttpHeader {
+    public createHeader(key: string, strategy?: RuleStrategy | RuleFlowStrategy): HttpHeader {
         return this.header.createHeader(key, strategy);
     }
 
 }
 
 interface ApiHeader {
-    createHeader(key: string, strategy?: RuleStrategy): HttpHeader;
+    createHeader(key: string, strategy?: RuleStrategy | RuleFlowStrategy): HttpHeader;
 }
 
 export class SolverHeader implements ApiHeader{
 
-    public createHeader(apiKey: string, strategy?: RuleStrategy): HttpHeader  {
+    public createHeader(apiKey: string, strategy?: RuleStrategy | RuleFlowStrategy): HttpHeader  {
     
         if (strategy) {
             return {

@@ -1,13 +1,9 @@
-import { Protocol, SolverMode, RuleStrategy } from "./Enums"
+import { Protocol, SolverMode } from "./Enums"
 
 export type HttpHeader = {
     'Authorization': string, 
     'Content-Type': string, 
     'X-Strategy'?: string
-}
-
-export type ManagementConfig = {
-    
 }
 
 export type CustomDomain = {
