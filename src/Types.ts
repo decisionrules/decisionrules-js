@@ -6,10 +6,16 @@ export type HttpHeader = {
     'X-Strategy'?: string
 }
 
-export type CustomDomain = {
-    domainName: string,
-    protocol: Protocol,
-    port: number
+export abstract class CustomDomain {
+    public domainName: string;
+    public protocol: Protocol;
+    public port: number;
+
+    constructor(domainName: string, protocol: Protocol, port: number){
+        this.domainName = domainName;
+        this.protocol = protocol;
+        this.port = port;
+    }
 }
 
 export type UrlData = {
