@@ -5,7 +5,6 @@ import axios from "axios";
 import {Protocol} from "./Enums";
 
 export class Management {
-
     private readonly apikey: string;
     private readonly customDomain: CustomDomain;
     private readonly header: HttpHeader;
