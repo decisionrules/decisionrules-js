@@ -1,4 +1,4 @@
-export class TagModel {
+export class Tag {
     tagName: string;
     color?: TagColor;
 }

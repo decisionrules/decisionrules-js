@@ -23,8 +23,3 @@ export type UrlData = {
     ruleId: string,
     version?: number | string
 }
-
-export type Tag = {
-    tagName: string,
-    color: string | 'default'
-}

@@ -1,6 +1,6 @@
 import {BaseType, DecisionBase} from './DecisionBase';
 
-export class Composition extends DecisionBase {
+export class RuleFlow extends DecisionBase {
     compositionId?: string;
     visualEditorData: any;
     type: BaseType.Composition;

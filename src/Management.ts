@@ -1,12 +1,13 @@
 import {HeaderContext, ManagementHeader} from "./Header";
-import {CustomDomain, HttpHeader, Tag} from "./Types";
+import {CustomDomain, HttpHeader} from "./Types";
 import {ManagementUrl, UrlContext} from "./Url";
 import axios from "axios";
 import {Protocol} from "./Enums";
 import {DecisionTableRule} from "./models/DecisionTableRule";
 import {DecisionTreeRule} from "./models/DecisionTreeRule";
 import {ScriptRule} from "./models/ScriptRule";
-import {Composition} from "./models/Composition";
+import {RuleFlow} from "./models/RuleFlow";
+import {Tag} from "./models/tag.model";
 
 export class Management {
     private readonly apikey: string;
@@ -49,7 +50,7 @@ export class Management {
      * Returns all rules including Rule Flows present in space that belongs to management API key.
      *
      */
-    public async getSpaceItems(): Promise<(DecisionTableRule | DecisionTreeRule | ScriptRule | Composition)[]> {
+    public async getSpaceItems(): Promise<(DecisionTableRule | DecisionTreeRule | ScriptRule | RuleFlow)[]> {
 
         const url: string = `${this.urlBase}/space/items`;
 
@@ -64,7 +65,7 @@ export class Management {
      *
      * @param rule
      */
-    public async createRule(rule: object): Promise<DecisionTableRule | DecisionTreeRule | ScriptRule> {
+    public async createRule(rule: DecisionTableRule | DecisionTreeRule | ScriptRule): Promise<DecisionTableRule | DecisionTreeRule | ScriptRule> {
 
         const url: string = `${this.urlBase}/rule/`;
 
@@ -81,7 +82,7 @@ export class Management {
      * @param rule
      * @param version
      */
-    public async updateRule(ruleId: string, rule: object,  version: number): Promise<number> {
+    public async updateRule(ruleId: string, rule: DecisionTableRule | DecisionTreeRule | ScriptRule,  version: number): Promise<number> {
 
         const url = `${this.urlBase}/rule/${ruleId}/${version}`
 
@@ -112,7 +113,7 @@ export class Management {
      * @param ruleId
      * @param version
      */
-    public async getRuleFlow(ruleId: string, version?: number): Promise<Composition> {
+    public async getRuleFlow(ruleId: string, version?: number): Promise<RuleFlow> {
         let url: string;
 
         if (version) {
@@ -131,7 +132,7 @@ export class Management {
      *
      * @param ruleFlow
      */
-    public async createRuleFlow(ruleFlow: object): Promise<Composition> {
+    public async createRuleFlow(ruleFlow: RuleFlow): Promise<RuleFlow> {
         const url: string =  `${this.urlBase}/rule-flow/`;
 
         const response = await axios.post(url, ruleFlow, {headers: this.header});
@@ -146,7 +147,7 @@ export class Management {
      * @param ruleFlow
      * @param version
      */
-    public async updateRuleFLow(ruleId: string, ruleFlow: object, version: number): Promise<number> {
+    public async updateRuleFLow(ruleId: string, ruleFlow: RuleFlow, version: number): Promise<number> {
 
         const url =  `${this.urlBase}/rule-flow/${ruleId}/${version}`;
 
@@ -181,7 +182,7 @@ export class Management {
      * @param ruleId
      * @param version
      */
-    public async exportRuleFlow(ruleId: string, version?: number): Promise<(DecisionTableRule | DecisionTreeRule | ScriptRule | Composition)[]> {
+    public async exportRuleFlow(ruleId: string, version?: number): Promise<(DecisionTableRule | DecisionTreeRule | ScriptRule | RuleFlow)[]> {
         let url: string;
 
         if (version) {
@@ -202,7 +203,7 @@ export class Management {
      * @param ruleId
      * @param version
      */
-    public async importRuleFlow(ruleFlow: object, ruleId?: string, version?: number): Promise<Composition> {
+    public async importRuleFlow(ruleFlow: (DecisionTableRule | DecisionTreeRule | ScriptRule | RuleFlow)[], ruleId?: string, version?: number): Promise<RuleFlow> {
 
         let url: string = "";
 
@@ -248,7 +249,7 @@ export class Management {
      * @param status
      * @param version
      */
-    public async changeRuleFlowStatus(ruleId: string, status: string, version: number): Promise<Composition> {
+    public async changeRuleFlowStatus(ruleId: string, status: string, version: number): Promise<RuleFlow> {
 
         let url: string = `${this.urlBase}/rule-flow/status/${ruleId}/${status}/${version}`;
 
@@ -263,7 +264,7 @@ export class Management {
      *
      * @param tags
      */
-    public async getRulesByTags(tags: string[]): Promise<(DecisionTableRule | DecisionTreeRule | ScriptRule | Composition)[]> {
+    public async getRulesByTags(tags: string[]): Promise<(DecisionTableRule | DecisionTreeRule | ScriptRule | RuleFlow)[]> {
 
         const tagsQuery = tags.join(",");
 
