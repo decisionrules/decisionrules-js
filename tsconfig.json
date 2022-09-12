@@ -5,6 +5,7 @@
     "outDir": "./dist",
     "declaration": true,
     "strict": true,
+    "strictPropertyInitialization": false
   },
   "include": [
     "src/**/*"
