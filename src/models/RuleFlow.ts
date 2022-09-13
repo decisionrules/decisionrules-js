@@ -4,7 +4,7 @@ export class RuleFlow extends DecisionBase {
     compositionId?: string;
     visualEditorData: any;
     type: BaseType.Composition;
-    dataTree?: IDataTree;
+    dataTree: IDataTree;
     rules?: {id: string, version?: number}[]
 }
 

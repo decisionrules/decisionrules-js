@@ -2,17 +2,16 @@ import {Models} from "./Rule";
 import AuditFlag = Models.AuditFlag;
 
 export class DecisionBase {
-    _id: string;
     name: string;
-    description: string;
+    description?: string;
     inputSchema: any;
     outputSchema: any;
-    version: number;
-    lastUpdate: Date;
-    createdIn: Date;
+    version?: number;
+    lastUpdate?: Date;
+    createdIn?: Date;
     status: BaseStatus;
     baseId?: string;
-    type?: BaseType;
+    type: BaseType;
     tags?: string[];
     auditLog?: AuditFlag
 }

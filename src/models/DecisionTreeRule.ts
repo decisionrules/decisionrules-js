@@ -18,13 +18,13 @@ export class DecisionTreeRule extends RuleBase {
 
 export class DTreeNode extends Cell {
 
-    id: string
+    id: string;
     type: DTreeNodeType;
     nodes: DTreeNode[];
     modelVariablePath?: string;
     scalarCondition?: ScalarCondition;
     result?: boolean
-    logs: any;
+    logs?: any;
 }
 
 export enum DTreeNodeType {
