@@ -3,11 +3,11 @@ import {CustomDomain, HttpHeader} from "./Types";
 import {ManagementUrl, UrlContext} from "./Url";
 import axios from "axios";
 import {Protocol} from "./Enums";
-import {DecisionTableRule} from "./models/DecisionTableRule";
+import {DecisionTableRule} from "../dist/models/DecisionTableRule";
 import {DecisionTreeRule} from "./models/DecisionTreeRule";
-import {ScriptRule} from "./models/ScriptRule";
-import {RuleFlow} from "./models/RuleFlow";
-import {Tag} from "./models/Tag";
+import {ScriptRule} from "../dist/models/ScriptRule";
+import {RuleFlow} from "../dist/models/RuleFlow";
+import {Tag} from "../dist/models/Tag";
 
 export class Management {
     private readonly apikey: string;
