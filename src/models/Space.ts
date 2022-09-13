@@ -1,8 +1,8 @@
-import {ApiKey} from "./ApiKey.model";
-import {RoleModel} from "./role.model";
-import {TagModel} from "./tag.model";
+import {ApiKey} from "./ApiKey";
+import {Role} from "./Role";
+import {Tag} from "./Tag";
 
-export class SpaceModel{
+export class Space {
     name?: string;
     _id?: string;
     spaceId?: string;
@@ -16,8 +16,8 @@ export class SpaceModel{
     compositions?: number;
     createdIn?: Date;
     lastUpdate?: Date;
-    roles?: RoleModel[];
-    tags?: TagModel[];
+    roles?: Role[];
+    tags?: Tag[];
 }
 
 export class SpaceUser{

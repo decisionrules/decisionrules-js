@@ -1,9 +1,9 @@
 /***
  * Decision Tree Frontend Model
  */
-import {RuleBase} from "./RuleBase.model";
+import {RuleBase} from "./RuleBase";
 import {BaseType} from "./DecisionBase";
-import {Models} from "./rule.model";
+import {Models} from "./Rule";
 import ScalarCondition = Models.ScalarCondition;
 import Cell = Models.Cell;
 

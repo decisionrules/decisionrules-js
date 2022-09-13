@@ -1,4 +1,4 @@
-import {Models} from "./rule.model";
+import {Models} from "./Rule";
 import ScalarCondition = Models.ScalarCondition;
 
 export class DecisionTableDebug {

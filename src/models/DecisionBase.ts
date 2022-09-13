@@ -1,4 +1,4 @@
-import {Models} from "./rule.model";
+import {Models} from "./Rule";
 import AuditFlag = Models.AuditFlag;
 
 export class DecisionBase {

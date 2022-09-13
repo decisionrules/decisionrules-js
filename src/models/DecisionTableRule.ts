@@ -1,6 +1,6 @@
 import {BaseType} from './DecisionBase';
-import {Models} from "./rule.model";
-import {RuleBase} from "./RuleBase.model";
+import {Models} from "./Rule";
+import {RuleBase} from "./RuleBase";
 import DecisionTable = Models.DecisionTable;
 
 export class DecisionTableRule extends RuleBase {

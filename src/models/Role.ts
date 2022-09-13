@@ -1,4 +1,4 @@
-export class RoleModel{
+export class Role {
     name: string;
     roleId: string;
     permissions: PermissionKey[];

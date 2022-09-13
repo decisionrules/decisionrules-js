@@ -7,7 +7,7 @@ import {DecisionTableRule} from "./models/DecisionTableRule";
 import {DecisionTreeRule} from "./models/DecisionTreeRule";
 import {ScriptRule} from "./models/ScriptRule";
 import {RuleFlow} from "./models/RuleFlow";
-import {Tag} from "./models/tag.model";
+import {Tag} from "./models/Tag";
 
 export class Management {
     private readonly apikey: string;
