@@ -1,4 +1,5 @@
-> This SDK has been deprecated in favor of [decisionrules/decisionrules]([https://decisionrules.io/](https://github.com/decisionrules/decisionrules)).
+> [!WARNING]
+> This SDK has been deprecated in favor of [decisionrules/decisionrules](https://github.com/decisionrules/decisionrules).
 
 # Summary
 [Decisionrules.io](https://decisionrules.io/) library that allows you to integrate DecisionRules Solver and Management API to you application as easily as possible. SDK allow you to solve all rule types that are available, CRUD operations on all rule types, rules status management and rule tags management.
