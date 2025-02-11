@@ -1,6 +1,7 @@
+> This SDK has been deprecated in favor of [decisionrules/decisionrules]([https://decisionrules.io/](https://github.com/decisionrules/decisionrules)).
+
 # Summary
 [Decisionrules.io](https://decisionrules.io/) library that allows you to integrate DecisionRules Solver and Management API to you application as easily as possible. SDK allow you to solve all rule types that are available, CRUD operations on all rule types, rules status management and rule tags management.
-> VERSION 3 IS NEW MAJOR VERSION OF THIS SDK AND IT IS STRONGLY RECOMMENDED, DUE TO DEPRECATION OF OLDER VERSIONS.
 
 # Installation
 You can simply integrate [SDK](https://www.npmjs.com/package/@decisionrules/decisionrules-js) to your project via NPM package manager.
